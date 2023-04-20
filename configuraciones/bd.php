@@ -1,3 +1,4 @@
+//Codigo para la conexion con la base de datos
 <?php
     class BD {
         public static $instancia = null;
