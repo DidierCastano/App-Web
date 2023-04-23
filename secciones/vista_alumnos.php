@@ -1,5 +1,6 @@
 <?php include("../templates/cabecera.php"); ?>
 <?php include('../secciones/alumnos.php'); ?>
+<br/>
     <div class="row">
         <div class="col-5">
             <form action="" method="post">
@@ -8,11 +9,12 @@
                         Alumnos
                     </div>
                     <div class="card-body">
-                        <div class="mb-3">
+                        <div class="mb-3 d-none">
                           <label for="" class="form-label">Id</label>
                           <input type="text"
                             class="form-control" 
                             name="id" 
+                            value="<?php echo $id; ?>"
                             id="id" 
                             aria-describedby="helpId" 
                             placeholder="Id">
@@ -21,7 +23,8 @@
                           <label for="" class="form-label">Nombre</label>
                           <input type="text"
                             class="form-control" 
-                            name="nombres" 
+                            name="nombres"
+                            value="<?php echo $nombres; ?>"
                             id="nombres" 
                             aria-describedby="helpId" 
                             placeholder="Escriba el nombre">
@@ -30,7 +33,8 @@
                           <label for="" class="form-label">Apellidos</label>
                           <input type="text"
                             class="form-control" 
-                            name="apellidos" 
+                            name="apellidos"
+                            value="<?php echo $apellidos; ?>"
                             id="apellidos" 
                             aria-describedby="helpId" 
                             placeholder="Escriba los apellidos">
@@ -38,9 +42,17 @@
                         <div class="mb-3">
                             <label for="" class="form-label">Curso del alumno:</label>
                             <select multiple class="form-control" name="cursos[]" id="listaCursos">
-                                <option>Seleccione una opción</option>
                                 <?php foreach($cursos as $curso){ ?>
-                                    <option value="<?php echo $curso['id']; ?>"> <?php echo $curso['id']; ?> - <?php echo $curso['nombre_curso']; ?></option>
+                                    <option
+                                        <?php
+                                            if(!empty($arregloCursos)):
+                                                if(in_array($curso['id'], $arregloCursos)):
+                                                    echo 'selected';
+                                                endif;
+                                            endif;   
+                                        ?>
+                                        value="<?php echo $curso['id']; ?>">
+                                    <?php echo $curso['id']; ?> - <?php echo $curso['nombre_curso']; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -70,11 +82,19 @@
                             <td><?php echo $alumno['nombres']; ?> <?php echo $alumno['apellidos']; ?>
                                 <br/>
                                 <?php foreach($alumno["cursos"] as $curso){ ?>
-                                    - <a href="#"> <?php echo $curso["nombre_curso"]; ?></a>
+                                    - <a href="certificado.php ? idcurso = <?php echo $curso['id']; ?> & idalumno = <?php echo $alumno['id']; ?>">
+                                        <i class="bi bi-filetype-pdf text-danger"></i>
+                                        <?php echo $curso["nombre_curso"]; ?>
+                                     </a>
                                     <br/>
-                                      <?php  } ?>
+                                    <?php } ?>
                             </td>
-                            <td>Seleccionar</td>
+                            <td>
+                                <form action="" method="post">
+                                    <input type="hidden" name="id" value="<?php echo $alumno["id"]; ?>">
+                                    <input type="submit" value="Seleccionar" name="accion" class="btn btn-info">
+                                </form>
+                            </td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>

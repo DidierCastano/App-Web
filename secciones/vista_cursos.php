@@ -14,7 +14,7 @@
                     Cursos
                 </div>
                 <div class="card-body">
-                    <div class="mb-3">
+                    <div class="mb-3 d-none">
                         <label for="" class="form-label">ID</label>
                         <input type="text"
                                class="form-control" 
@@ -70,8 +70,7 @@
                 </table>
             </div>
         </div>
-
-        </div>
-      </div>
+     </div>
     </div>
+</div>
 <?php include("../templates/pie.php"); ?>

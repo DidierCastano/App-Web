@@ -1,4 +1,3 @@
-//Codigo para la conexion con la base de datos
 <?php
     class BD {
         public static $instancia = null;
@@ -6,7 +5,7 @@
             if(!isset(self::$instancia)){
                 $opciones[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
                 self::$instancia = new PDO('mysql:host=localhost;dbname=aplicacion2', 'root', '', $opciones);
-                echo"conectado...";
+                //echo"conectado...";
             }
             return self::$instancia;
         }
